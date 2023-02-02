@@ -31,6 +31,7 @@ class Modal extends Component {
     const {
       currentImage: { src },
       closeModal,
+      search,
     } = this.props;
 
     const { closeOnBackdrop } = this;
@@ -38,7 +39,7 @@ class Modal extends Component {
     return createPortal(
       <Backdrop onClick={closeOnBackdrop}>
         <ModalContent>
-          <img src={src} alt="Image for modal" width="400" />
+          <img src={src} alt={search} width="400" />
           <ModalCloseBtn onClick={closeModal}>
             <BsXCircle
               style={{
@@ -60,4 +61,5 @@ export default Modal;
 Modal.propTypes = {
   currentImage: PropTypes.shape({ src: PropTypes.string }).isRequired,
   closeModal: PropTypes.func.isRequired,
+  search: PropTypes.string.isRequired,
 };

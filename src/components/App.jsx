@@ -47,6 +47,7 @@ class App extends Component {
 
   searchImages = ({ search }) => {
     if (search.trim() === '') {
+      this.setState({ images: [], page: 1 });
       return toast.error('Repeat the question again please');
     }
 
@@ -67,7 +68,7 @@ class App extends Component {
 
   render() {
     const { loadMoreImages, searchImages, openModal, closeModal } = this;
-    const { images, isLoading, error, currentImage } = this.state;
+    const { images, isLoading, error, currentImage, search } = this.state;
 
     return (
       <SectionApp>
@@ -81,12 +82,20 @@ class App extends Component {
         )}
         {images.length > 0 && (
           <>
-            <ImageGallery images={images} openModal={openModal} />
+            <ImageGallery
+              images={images}
+              openModal={openModal}
+              search={search}
+            />
             <Button text="Load more" loadMoreImages={loadMoreImages} />
           </>
         )}
         {currentImage && (
-          <Modal currentImage={currentImage} closeModal={closeModal} />
+          <Modal
+            currentImage={currentImage}
+            closeModal={closeModal}
+            search={search}
+          />
         )}
       </SectionApp>
     );
