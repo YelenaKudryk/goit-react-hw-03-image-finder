@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import fetchApiImages from './services/api';
+import fetchApiImages from '../services/api';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
@@ -73,23 +73,24 @@ class App extends Component {
     return (
       <SectionApp>
         <Searchbar onSubmit={searchImages} />
-        <ToastContainer />
-        {isLoading && <Loader />}
+
         {error && (
           <ErrorMessage>
             Something went wrong. Try reloading the page
           </ErrorMessage>
         )}
+
         {images.length > 0 && (
-          <>
-            <ImageGallery
-              images={images}
-              openModal={openModal}
-              search={search}
-            />
-            <Button text="Load more" loadMoreImages={loadMoreImages} />
-          </>
+          <ImageGallery images={images} openModal={openModal} search={search} />
         )}
+
+        {images.length > 0 && !isLoading && (
+          <Button text="Load more" loadMoreImages={loadMoreImages} />
+        )}
+
+        <ToastContainer />
+        {isLoading && <Loader />}
+
         {currentImage && (
           <Modal
             currentImage={currentImage}
